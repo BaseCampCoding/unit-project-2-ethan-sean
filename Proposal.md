@@ -14,12 +14,23 @@ Many iterations of bank account management systems exist everywhere, but how the
 ### Daily Goals
 **Tuesday: Creating base functions and user account creation**
 - We are creating the user interface to which the user has an interactive system and will be able to create an account.
+#### Implementaion
+- A user class, account class, Users Database, User Input setup.
 
 **Wednesday: Setting up initial database and saving function**
 - Allowing all information with accounts and balances and such into a SQL database. Also while adding our savings features.
+#### Implementation
+- Table for account information, Savings account creation, giving user an option on what specific amount they are wanting to save. Then taking that amount to and adding it to savings balance (i.e. savings table)
+##### Work Split
+- Ethan: Account Information Table, user IO
+- Sean: Savings Account Table, math functions
 
 **Thursday: Drying up code and bug fixes(Potential for GUI implementation)**
 - Review over all code checking for errors and specific things that need tweaking or fixing to prevent bugs. Possibility for adding a GUI if time allows.
+#### Implementation
+- If time allows add GUI. Fixing any and all bugs plus tidying up code.
+Ethan: First code review and start on GUI
+Sean: Final code review and touch up on GUI
 
 ### Students
 - Ethan

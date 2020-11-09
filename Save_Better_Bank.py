@@ -27,6 +27,7 @@ class account:
     def total_balance(self):
         return self.balance
 
-# user = account()
+
+# user = account() /
 # user1 = user.withdraw(10)
 # print(f'Your balance is ${user.balance:.2f}')

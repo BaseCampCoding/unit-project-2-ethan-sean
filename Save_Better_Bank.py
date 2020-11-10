@@ -1,5 +1,5 @@
 import sqlite3
-from Bank_Logic import cur, con
+from Bank_Logic import cur, con, is_login_password_valid
 class users:
     def __init__(self, name, password):
         self.name = name
@@ -29,10 +29,31 @@ def create_account():
     print(f"Your User Name is [{completed_user.name}], Your password is [{completed_user.password}]")
     cur.execute('INSERT INTO users VALUES(?, ?)', (user_name, user_password))
     con.commit()
+    cur.execute('SELECT * FROM users')
+    print(cur.fetchall())
     print("Account Has Been Created!")
 
 print("Welcome to SaveBetterBank(SBB)")
 
+def login():
+    while True:
+        user_login = input('UserName: ')
+        user_password = input('Password: ')
+        valid = is_login_password_valid(user_login, user_password)
+        if valid == True:
+            print('Successfully Logged in!')
+            break
+        else:
+            print('Username or password wrong. Try Again!')
+
+def valid_number(num):
+    while True:
+        response = input(num)
+        if response.isdigit():
+            response = int(num)
+            if response >= 0:
+                return response
+        print("Please provide a valid number")
 
 while True:
     main_menu = input("""What would you like to do?(Type Letter of what you want to do.)
@@ -43,10 +64,8 @@ while True:
 
     if main_menu == "a":
         login()
-        break
     elif main_menu == "b":
         create_account()
-        break
     elif main_menu == "c":
         remove_account()
         break

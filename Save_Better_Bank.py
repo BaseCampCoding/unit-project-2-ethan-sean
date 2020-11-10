@@ -34,6 +34,7 @@ def create_account():
         Your account number is {user_id}
         """)
     cur.execute('INSERT INTO users VALUES(?, ?, ?)', (user_name, user_password, user_id))
+    cur.execute('INSERT INTO account VALUES(?)', (user_id))
     con.commit()
     print("Account Has Been Created!")
 

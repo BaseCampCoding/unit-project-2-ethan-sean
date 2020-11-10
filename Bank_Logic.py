@@ -10,11 +10,11 @@ con.commit()
 def compare_userid():
     while True:
         cur.execute('SELECT user_id FROM users INNER JOIN accounts ON user_id = account_id')
-        con.commit()
-        if cur.fetchall():
-            return True
+        current_user = cur.fetchall()
+        if current_user:
+            return current_user
         else: 
-            return False
+            return None
 
 class account:
     def __init__(self):
@@ -31,8 +31,6 @@ class account:
     def total_balance(self):
         return self.balance
     
-    def get_balance(self):
-      
 def is_login_password_valid(username: str, password: str) -> bool:
     cur.execute('SELECT * FROM users WHERE user_name = ? AND user_password = ?', [username, password])
     if cur.fetchall():
@@ -40,17 +38,24 @@ def is_login_password_valid(username: str, password: str) -> bool:
     else:
         return False
 
-def valid_number(num):
-    while True:
-        response = input(num)
-        if response.isdigit():
-            response = float(num)
-            if response >= 0:
-                return response
-        print("Please provide a valid number")
+# def valid_number(num):
+#     while True:
+#         response = input(num)
+#         if response.isdigit():
+#             response = float(num)
+#             if response > 0:
+#                 return response
+#         print("Please provide a valid number")
 
-def deposit():
+def deposits():
     while True:
-        user_deposit = input("How much are you wanting to deposit: ")
-        if valid_number(user_deposit):
-            cur.execute('SELECT balance FROM accounts')        
+        something = compare_userid()
+        user_deposit = float(input("How much are you wanting to deposit: "))
+        if user_deposit:
+            cur.execute('SELECT balance FROM accounts WHERE VALUES(?)', (compare_userid()))
+            current_user = account()
+            current_user.deposit(user_deposit)
+            print(f"Your new balance is ${current_user.balance}")
+            break
+        else:
+            print("Please give valid deposit amount!")     

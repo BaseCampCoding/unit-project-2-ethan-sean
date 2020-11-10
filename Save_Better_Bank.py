@@ -1,6 +1,6 @@
 import sqlite3
 import random
-from Bank_Logic import cur, con, is_login_password_valid, compare_userid
+from Bank_Logic import cur, con, is_login_password_valid, compare_userid, deposits
 class users:
     def __init__(self, name, password):
         self.name = name

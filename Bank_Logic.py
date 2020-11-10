@@ -4,8 +4,17 @@ con = sqlite3.connect('Save_Better_Bank.db')
 cur = con.cursor()
 cur.execute('CREATE TABLE IF NOT EXISTS users(user_name TEXT, user_password TEXT, user_id INT)')
 
-cur.execute('CREATE TABLE IF NOT EXISTS accounts(user_id INT, balance REAL, transactions TEXT)')
+cur.execute('CREATE TABLE IF NOT EXISTS accounts(account_id INT, balance REAL, transactions TEXT)')
 con.commit()
+
+def compare_userid():
+    while True:
+        cur.execute('SELECT user_id FROM users INNER JOIN accounts ON user_id = account_id')
+        con.commit()
+        if cur.fetchall():
+            return True
+        else: 
+            return False
 
 class account:
     def __init__(self):

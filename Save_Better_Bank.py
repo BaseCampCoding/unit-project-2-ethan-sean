@@ -38,6 +38,14 @@ def create_account():
     con.commit()
     print("Account Has Been Created!")
 
+def login_page():
+    page = input("""Do you want to view balance, withdraw, deposit, or view transactions
+    - a) View Balance
+    - b) Deposit
+    - c) Withdraw
+    - d) View transactions
+    Type Here: """).lower()
+
 print("Welcome to SaveBetterBank(SBB)")
 
 def login():
@@ -47,6 +55,7 @@ def login():
         valid = is_login_password_valid(user_login, user_password)
         if valid == True:
             print('Successfully Logged in!')
+            login_page()
             break
         else:
             print('Username or password wrong. Try Again!')

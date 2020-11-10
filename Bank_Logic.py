@@ -21,7 +21,9 @@ class account:
 
     def total_balance(self):
         return self.balance
-
+    
+    def get_balance(self):
+      
 def is_login_password_valid(username: str, password: str) -> bool:
     cur.execute('SELECT * FROM users WHERE user_name = ? AND user_password = ?', [username, password])
     if cur.fetchall():
@@ -42,7 +44,4 @@ def deposit():
     while True:
         user_deposit = input("How much are you wanting to deposit: ")
         if valid_number(user_deposit):
-            cur.execute('SELECT balance FROM accounts')
-            
-
-            
+            cur.execute('SELECT balance FROM accounts')        

@@ -29,13 +29,15 @@ def create_account():
     print("Account Has Been Created!")
 
 print("Welcome to SaveBetterBank(SBB)")
-main_menu = input("""What would you like to do?(Type Letter of what you want to do.)
+
+
+while True:
+    main_menu = input("""What would you like to do?(Type Letter of what you want to do.)
     - a) Login
     - b) Create an account
     - c) Delete an existing account
-    Type Here: """)
+    Type Here: """).lower()
 
-while True:
     if main_menu == "a":
         login()
         break
@@ -46,7 +48,8 @@ while True:
         remove_account()
         break
     else:
-        continue
+        print("Please Try Again with a valid letter!")
+        
 
 # user = account() /
 # user1 = user.withdraw(10)

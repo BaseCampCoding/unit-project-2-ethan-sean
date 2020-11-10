@@ -31,7 +31,21 @@ def login_page():
         - b) Deposit
         - c) Withdraw
         - d) View transactions
+        - e) Log Out
         Type Here: """).lower()
+        if page == "a":
+            view_balance()
+        elif page == "b":
+            deposits()
+        elif page == "b":
+            widthdrawls()
+        elif page == "d":
+            transactions()
+        elif page == "e":
+            print("Logged Out Successfully!")
+            quit()
+        else:
+            print("Please Provide Valid Input!")
     
 print("Welcome to SaveBetterBank(SBB)")
 

@@ -9,23 +9,27 @@ class users:
 class account:
     def __init__(self):
         self.balance = 0
-    
+
     def deposit(self, deposit):
         self.balance = self.balance + deposit
         return self.balance
-    
+
     def withdraw(self, withdraw):
         if self.balance >= withdraw:
-            self.balance - withdraw
-    
+            self.balance -= withdraw
+
     def total_balance(self):
         return self.balance
 
 def create_account():
-    user_name = input("Please provide a username you would like to use(Ex: ethan_bishop.20) - ")
+    user_name = input(
+        "Please provide a username you would like to use(Ex: ethan_bishop.20) - "
+    )
     user_password = input("Type a strong Password: ")
     completed_user = users(user_name, user_password)
-    print(f"Your User Name is [{completed_user.name}], Your password is [{completed_user.password}]")
+    print(
+        f"Your User Name is [{completed_user.name}], Your password is [{completed_user.password}]"
+    )
     print("Account Has Been Created!")
 
 print("Welcome to SaveBetterBank(SBB)")
@@ -49,8 +53,14 @@ while True:
         break
     else:
         print("Please Try Again with a valid letter!")
-        
 
-# user = account() /
-# user1 = user.withdraw(10)
-# print(f'Your balance is ${user.balance:.2f}')
+# user = account()
+# user1 = user.deposit(50)
+# user1 = user.withdraw(20)
+
+# user2 = account()
+# user = user2.deposit(100)
+# user = user2.withdraw(10)
+# # print(user2)
+# print(f"Your balance is ${user.balance:.2f}")
+# print(f"Your balance is ${user2.balance:.2f}")

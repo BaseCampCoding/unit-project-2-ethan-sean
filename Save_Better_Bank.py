@@ -1,4 +1,5 @@
 import sqlite3
+import random
 from Bank_Logic import cur, con, is_login_password_valid
 class users:
     def __init__(self, name, password):
@@ -26,11 +27,14 @@ def create_account():
     )
     user_password = input("Type a strong Password: ")
     completed_user = users(user_name, user_password)
-    print(f"Your User Name is [{completed_user.name}], Your password is [{completed_user.password}]")
-    cur.execute('INSERT INTO users VALUES(?, ?)', (user_name, user_password))
+    user_id = random.randint(100000, 999999)
+    print(f"""
+        Your User Name is {completed_user.name}, 
+        Your password is {completed_user.password}, 
+        Your account number is {user_id}
+        """)
+    cur.execute('INSERT INTO users VALUES(?, ?, ?)', (user_name, user_password, user_id))
     con.commit()
-    cur.execute('SELECT * FROM users')
-    print(cur.fetchall())
     print("Account Has Been Created!")
 
 print("Welcome to SaveBetterBank(SBB)")
@@ -64,6 +68,7 @@ while True:
 
     if main_menu == "a":
         login()
+        break
     elif main_menu == "b":
         create_account()
     elif main_menu == "c":

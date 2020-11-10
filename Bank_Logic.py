@@ -2,7 +2,7 @@ import sqlite3
 
 con = sqlite3.connect('Save_Better_Bank.db')
 cur = con.cursor()
-cur.execute('CREATE TABLE IF NOT EXISTS users(user_name TEXT, user_password TEXT)')
+cur.execute('CREATE TABLE IF NOT EXISTS users(user_name TEXT, user_password TEXT, user_id INT)')
 con.commit()
 
 def is_login_password_valid(username: str, password: str) -> bool:

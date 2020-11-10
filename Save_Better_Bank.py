@@ -6,21 +6,6 @@ class users:
         self.name = name
         self.password = password
 
-class account:
-    def __init__(self):
-        self.balance = 0
-
-    def deposit(self, deposit):
-        self.balance = self.balance + deposit
-        return self.balance
-
-    def withdraw(self, withdraw):
-        if self.balance >= withdraw:
-            self.balance -= withdraw
-
-    def total_balance(self):
-        return self.balance
-
 def create_account():
     user_name = input(
         "Please provide a username you would like to use(Ex: ethan_bishop.20) - "
@@ -28,13 +13,14 @@ def create_account():
     user_password = input("Type a strong Password: ")
     completed_user = users(user_name, user_password)
     user_id = random.randint(100000, 999999)
+    initial_balance = float(0)
     print(f"""
         Your User Name is {completed_user.name}, 
         Your password is {completed_user.password}, 
         Your account number is {user_id}
         """)
     cur.execute('INSERT INTO users VALUES(?, ?, ?)', (user_name, user_password, user_id))
-    cur.execute('INSERT INTO account VALUES(?)', (user_id))
+    cur.execute('INSERT INTO account VALUES(?, ?)', (user_id, initial_balance))
     con.commit()
     print("Account Has Been Created!")
 
@@ -47,8 +33,6 @@ def login_page():
         - d) View transactions
         Type Here: """).lower()
     
-
-
 print("Welcome to SaveBetterBank(SBB)")
 
 def login():
@@ -63,14 +47,6 @@ def login():
         else:
             print('Username or password wrong. Try Again!')
 
-def valid_number(num):
-    while True:
-        response = input(num)
-        if response.isdigit():
-            response = int(num)
-            if response >= 0:
-                return response
-        print("Please provide a valid number")
 
 while True:
     main_menu = input("""What would you like to do?(Type Letter of what you want to do.)

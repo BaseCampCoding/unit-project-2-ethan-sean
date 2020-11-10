@@ -1,6 +1,5 @@
 import sqlite3
-import Bank_Logic
-
+from Bank_Logic import cur, con
 class users:
     def __init__(self, name, password):
         self.name = name
@@ -27,9 +26,9 @@ def create_account():
     )
     user_password = input("Type a strong Password: ")
     completed_user = users(user_name, user_password)
-    print(
-        f"Your User Name is [{completed_user.name}], Your password is [{completed_user.password}]"
-    )
+    print(f"Your User Name is [{completed_user.name}], Your password is [{completed_user.password}]")
+    cur.execute('INSERT INTO users VALUES(?, ?)', (user_name, user_password))
+    con.commit()
     print("Account Has Been Created!")
 
 print("Welcome to SaveBetterBank(SBB)")

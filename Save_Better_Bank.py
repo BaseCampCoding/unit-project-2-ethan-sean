@@ -39,12 +39,15 @@ def create_account():
     print("Account Has Been Created!")
 
 def login_page():
-    page = input("""Do you want to view balance, withdraw, deposit, or view transactions
-    - a) View Balance
-    - b) Deposit
-    - c) Withdraw
-    - d) View transactions
-    Type Here: """).lower()
+    while True:
+        page = input("""Do you want to view balance, withdraw, deposit, or view transactions
+        - a) View Balance
+        - b) Deposit
+        - c) Withdraw
+        - d) View transactions
+        Type Here: """).lower()
+    
+
 
 print("Welcome to SaveBetterBank(SBB)")
 

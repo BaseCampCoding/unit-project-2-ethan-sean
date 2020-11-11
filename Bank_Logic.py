@@ -98,7 +98,7 @@ def clear():
     
 
     
-            print("Please give valid deposit amount!")
+
 
 def transactions():
     cur.execute('SELECT transactions FROM info')

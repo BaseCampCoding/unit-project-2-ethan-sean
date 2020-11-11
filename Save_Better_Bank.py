@@ -1,6 +1,7 @@
 import sqlite3
 import random
-from Bank_Logic import cur, con, is_login_password_valid, deposits, view_balance, widthdrawls
+from Bank_Logic import cur, con, is_login_password_valid, deposits, widthdrawls, account
+account = account()
 class users:
     def __init__(self, name, password):
         self.name = name
@@ -54,15 +55,16 @@ def login():
         if valid == True:
             print('Successfully Logged in!')
             while True:
+                
                 page = input("""Do you want to view balance, withdraw, deposit, or view transactions
-                - a) View Balance
-                - b) Deposit
-                - c) Withdraw
-                - d) View transactions
-                - e) Log Out
-                Type Here: """).lower()
+        - a) View Balance
+        - b) Deposit
+        - c) Withdraw
+        - d) View transactions
+        - e) Log Out
+        Type Here: """).lower()
                 if page == "a":
-                    view_balance(user_login)
+                    account.view_balance(user_login)
                 elif page == "b":
                     deposits(user_login)
                 elif page == "b":

@@ -1,5 +1,7 @@
 import sqlite3
-
+from os import system, name
+from time import sleep
+import stdiomask
 con = sqlite3.connect('Save_Better_Bank.db')
 cur = con.cursor()
 cur.execute('CREATE TABLE IF NOT EXISTS users(user_name TEXT, user_password TEXT, balance REAL)')
@@ -74,7 +76,33 @@ def withdrawls(username):
             print(f"Your new balance is ${current_user.balance}")
             break
         else:
-            print("Please give valid deposit amount!")
+            print("Please give valid deposit amount!")   
+
+def remove_account():
+    while True:
+        print(f'Please Login with the account you would like to delete:')
+        login = input('UserName: ') 
+        password = stdiomask.getpass(prompt = "Password: ")
+        valid_user = is_login_password_valid(login, password)
+        if valid_user:
+            confirmation = input('''
+            Are you sure you want to delete your account? 
+            This will permanently delete everything.
+            If sure Type (Y/N):  ''').lower()
+            if confirmation == "y":
+                cur.execute('DELETE FROM users WHERE user_name = ? AND user_password = ?', [login, password])
+                print('Successfully Deleted!')
+                break
+            elif confirmation == "n":
+                break
+            else:
+                ("Provide A Valid Action(a, b, c, etc.)")
+        else: 
+            print("Please Provide A Valid Login and Password!")
+
+def clear():
+    if name == 'nt':
+        _ = system('cls')
 
 def transactions():
     cur.execute('SELECT status, transactions FROM info')

@@ -1,6 +1,9 @@
 import sqlite3
 import random
-from Bank_Logic import cur, con, is_login_password_valid, deposits, withdrawls, account, transactions
+import stdiomask
+from os import system, name
+from time import sleep
+from Bank_Logic import cur, con, is_login_password_valid, deposits, widthdrawls, account, remove_account, clear
 account = account()
 class users:
     def __init__(self, name, password):
@@ -11,7 +14,7 @@ def create_account():
     user_name = input(
         "Please provide a username you would like to use(Ex: ethan_bishop.20) - "
     )
-    user_password = input("Type a strong Password: ")
+    user_password = stdiomask.getpass(prompt = "Type a strong Password: ")
     completed_user = users(user_name, user_password)
     initial_balance = float(0)
     print(f"""
@@ -21,6 +24,7 @@ def create_account():
     cur.execute('INSERT INTO users VALUES(?, ?, ?)', (user_name, user_password, initial_balance))
     con.commit()
     print("Account Has Been Created!")
+    clear()
 
 # def login_page():
 #     while True:
@@ -50,7 +54,7 @@ def create_account():
 def login():
     while True:
         user_login = input('UserName: ')
-        user_password = input('Password: ')
+        user_password = stdiomask.getpass(prompt = 'Password: ')
         valid = is_login_password_valid(user_login, user_password)
         if valid == True:
             print('Successfully Logged in!')
@@ -64,14 +68,19 @@ def login():
         - e) Log Out
         Type Here: """).lower()
                 if page == "a":
+                    clear()
                     account.view_balance(user_login)
                 elif page == "b":
+                    clear()
                     deposits(user_login)
                 elif page == "c":
-                    withdrawls(user_login)
+                    clear()
+                    widthdrawls(user_login)
                 elif page == "d":
+                    clear()
                     transactions()
                 elif page == "e":
+                    clear()
                     print("Logged Out Successfully!")
                     quit()
                 else:
@@ -85,16 +94,22 @@ while True:
     - a) Login
     - b) Create an account
     - c) Delete an existing account
+    - d) Quit
     Type Here: """).lower()
 
     if main_menu == "a":
+        clear()
         login()
         break
     elif main_menu == "b":
+        clear()
         create_account()
     elif main_menu == "c":
+        clear()
         remove_account()
-        break
+    elif main_menu == "d":
+        print("Goodbye!")
+        quit()
     else:
         print("Please Try Again with a valid letter!")
 

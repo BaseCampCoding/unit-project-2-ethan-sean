@@ -4,7 +4,7 @@ con = sqlite3.connect('Save_Better_Bank.db')
 cur = con.cursor()
 cur.execute('CREATE TABLE IF NOT EXISTS users(user_name TEXT, user_password TEXT, balance REAL)')
 
-cur.execute('CREATE TABLE IF NOT EXISTS info(transactions REAL)')
+cur.execute('CREATE TABLE IF NOT EXISTS info(status TEXT, transactions REAL)')
 con.commit()
 
 
@@ -26,9 +26,15 @@ class account:
         con.commit()
         return self.balance
 
-    def withdraw(self, withdraw):
+    def withdraw(self, username, withdraw):
+        cur.execute('SELECT balance FROM users WHERE user_name = ?', [username])
+        self.balance = cur.fetchall()
+        self.balance = float(self.balance[0][0])
         if self.balance >= withdraw:
             self.balance -= withdraw
+            cur.execute('UPDATE users SET balance = ? WHERE user_name = ?', (self.balance, username))
+            return self.balance
+        print("You don't have enough funds to withdraw this amount")
 
     def view_balance(self, username):
         cur.execute('SELECT balance FROM users WHERE user_name = ?', [username])
@@ -47,6 +53,8 @@ def is_login_password_valid(username: str, password: str) -> bool:
 def deposits(username):
     while True:
         user_deposit = float(input("How much are you wanting to deposit: $"))
+        deposit = 'Deposit'
+        cur.execute('INSERT INTO info VALUES(?,?)', [deposit, user_deposit])
         if user_deposit:
             current_user = account()
             current_user.deposit(username, user_deposit)
@@ -55,20 +63,20 @@ def deposits(username):
         else:
             print("Please give valid deposit amount!")
 
-def widthdrawls(username):
+def withdrawls(username):
     while True:
         user_widthdrawls = float(input("How much are you wanting to withdraw: $"))
-        # cur.execute('INSERT INTO info VALUES (?)', [user_widthdrawls])
-        if  user_widthdrawls:
-            cur.execute('SELECT balance FROM users WHERE user_name = ?', (username))
+        withdraw = 'withdrew'
+        cur.execute('INSERT INTO info VALUES(?, ?)', [withdraw, user_widthdrawls])
+        if user_widthdrawls:
             current_user = account()
-            current_user.withdraw(user_widthdrawls)
+            current_user.withdraw(username, user_widthdrawls)
             print(f"Your new balance is ${current_user.balance}")
             break
         else:
             print("Please give valid deposit amount!")
 
 def transactions():
-    cur.execute('SELECT transactions FROM info')
-    information = cur.fetchall()
-    print(information)
+    cur.execute('SELECT status, transactions FROM info')
+    for info in cur.fetchall():
+        print(info[0], info[1])

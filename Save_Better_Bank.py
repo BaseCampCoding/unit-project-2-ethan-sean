@@ -1,6 +1,6 @@
 import sqlite3
 import random
-from Bank_Logic import cur, con, is_login_password_valid, deposits, widthdrawls, account, transactions
+from Bank_Logic import cur, con, is_login_password_valid, deposits, withdrawls, account, transactions
 account = account()
 class users:
     def __init__(self, name, password):
@@ -68,7 +68,7 @@ def login():
                 elif page == "b":
                     deposits(user_login)
                 elif page == "c":
-                    widthdrawls(user_login)
+                    withdrawls(user_login)
                 elif page == "d":
                     transactions()
                 elif page == "e":

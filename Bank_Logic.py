@@ -8,6 +8,8 @@ con.commit()
 
 
 class account:
+    def user(self, username):
+        self.username = cur.execute('SELECT * From users WHERE user_name = ?,'[username])
     def __init__(self):
         cur.execute('SELECT balance FROM users')
         balance = cur.fetchall()

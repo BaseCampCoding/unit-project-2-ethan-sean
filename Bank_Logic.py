@@ -38,11 +38,11 @@ def is_login_password_valid(username: str, password: str) -> bool:
 #                 return response
 #         print("Please provide a valid number")
 
-def deposits():
+def deposits(username, password):
     while True:
         user_deposit = float(input("How much are you wanting to deposit: "))
         if user_deposit:
-            cur.execute('SELECT balance FROM users WHERE user_name = ? AND user_password = ?', ()
+            cur.execute('SELECT balance FROM users WHERE user_name = ? AND user_password = ?', [username, password])
             current_user = account()
             current_user.deposit(user_deposit)
             print(f"Your new balance is ${current_user.balance}")

@@ -1,6 +1,6 @@
 import sqlite3
 import random
-from Bank_Logic import cur, con, is_login_password_valid, compare_userid, deposits
+from Bank_Logic import cur, con, is_login_password_valid, deposits
 class users:
     def __init__(self, name, password):
         self.name = name
@@ -21,30 +21,30 @@ def create_account():
     con.commit()
     print("Account Has Been Created!")
 
-def login_page():
-    while True:
-        page = input("""Do you want to view balance, withdraw, deposit, or view transactions
-        - a) View Balance
-        - b) Deposit
-        - c) Withdraw
-        - d) View transactions
-        - e) Log Out
-        Type Here: """).lower()
-        if page == "a":
-            view_balance()
-        elif page == "b":
-            deposits()
-        elif page == "b":
-            widthdrawls()
-        elif page == "d":
-            transactions()
-        elif page == "e":
-            print("Logged Out Successfully!")
-            quit()
-        else:
-            print("Please Provide Valid Input!")
+# def login_page():
+#     while True:
+#         page = input("""Do you want to view balance, withdraw, deposit, or view transactions
+#         - a) View Balance
+#         - b) Deposit
+#         - c) Withdraw
+#         - d) View transactions
+#         - e) Log Out
+#         Type Here: """).lower()
+#         if page == "a":
+#             view_balance()
+#         elif page == "b":
+#             deposits()
+#         elif page == "b":
+#             widthdrawls()
+#         elif page == "d":
+#             transactions()
+#         elif page == "e":
+#             print("Logged Out Successfully!")
+#             quit()
+#         else:
+#             print("Please Provide Valid Input!")
     
-print("Welcome to SaveBetterBank(SBB)")
+# print("Welcome to SaveBetterBank(SBB)")
 
 def login():
     while True:
@@ -53,8 +53,27 @@ def login():
         valid = is_login_password_valid(user_login, user_password)
         if valid == True:
             print('Successfully Logged in!')
-            login_page()
-            break
+            while True:
+                page = input("""Do you want to view balance, withdraw, deposit, or view transactions
+                - a) View Balance
+                - b) Deposit
+                - c) Withdraw
+                - d) View transactions
+                - e) Log Out
+                Type Here: """).lower()
+                if page == "a":
+                    view_balance()
+                elif page == "b":
+                    deposits(user_login, user_password)
+                elif page == "b":
+                    widthdrawls()
+                elif page == "d":
+                    transactions()
+                elif page == "e":
+                    print("Logged Out Successfully!")
+                    quit()
+                else:
+                    print("Please Provide Valid Input!")
         else:
             print('Username or password wrong. Try Again!')
 

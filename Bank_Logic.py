@@ -4,6 +4,7 @@ con = sqlite3.connect('Save_Better_Bank.db')
 cur = con.cursor()
 cur.execute('CREATE TABLE IF NOT EXISTS users(user_name TEXT, user_password TEXT, balance REAL)')
 
+cur.execute('CREATE TABLE IF NOT EXISTS info(transactions REAL)')
 con.commit()
 
 
@@ -12,7 +13,7 @@ class account:
         cur.execute('SELECT balance FROM users')
         balance = cur.fetchall()
         self.balance = float(balance[0][0])
-
+    
     def deposit(self, deposit):
         cur.execute('SELECT balance FROM users')
         self.balance = self.balance + deposit
@@ -63,7 +64,8 @@ def deposits(username):
 
 def widthdrawls(username):
     while True:
-        user_widthdrawls = input("How much are you wanting to withdraw: ")
+        user_widthdrawls = float(input("How much are you wanting to withdraw: $"))
+        # cur.execute('INSERT INTO info VALUES (?)', [user_widthdrawls])
         if  user_widthdrawls:
             cur.execute('SELECT balance FROM users WHERE user_name = ?', (username))
             current_user = account()
@@ -71,4 +73,9 @@ def widthdrawls(username):
             print(f"Your new balance is ${current_user.balance}")
             break
         else:
-            print("Please give valid deposit amount!")   
+            print("Please give valid deposit amount!")
+
+def transactions():
+    cur.execute('SELECT transactions FROM info')
+    information = cur.fetchall()
+    print(information)

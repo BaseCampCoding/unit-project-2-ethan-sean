@@ -73,7 +73,7 @@ def login():
                 elif page == "b":
                     clear()
                     deposits(user_login)
-                elif page == "b":
+                elif page == "c":
                     clear()
                     widthdrawls(user_login)
                 elif page == "d":

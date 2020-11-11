@@ -103,6 +103,10 @@ def remove_account():
 def clear():
     if name == 'nt':
         _ = system('cls')
+    
+
+    
+
 
 def transactions():
     cur.execute('SELECT status, transactions FROM info')

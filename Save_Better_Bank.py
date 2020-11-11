@@ -3,7 +3,7 @@ import random
 import stdiomask
 from os import system, name
 from time import sleep
-from Bank_Logic import cur, con, is_login_password_valid, deposits, widthdrawls, account, remove_account, clear, transactions
+from Bank_Logic import cur, con, is_login_password_valid, deposits, withdraw, account, remove_account, clear, transactions
 account = account()
 class users:
     def __init__(self, name, password):
@@ -75,7 +75,7 @@ def login():
                     deposits(user_login)
                 elif page == "c":
                     clear()
-                    widthdrawls(user_login)
+                    withdraw(user_login)
                 elif page == "d":
                     clear()
                     transactions()

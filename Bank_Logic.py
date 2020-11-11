@@ -35,6 +35,7 @@ class account:
         if self.balance >= withdraw:
             self.balance -= withdraw
             cur.execute('UPDATE users SET balance = ? WHERE user_name = ?', (self.balance, username))
+            con.commit()
             return self.balance
         print("You don't have enough funds to withdraw this amount")
 
@@ -65,10 +66,10 @@ def deposits(username):
         else:
             print("Please give valid deposit amount!")
 
-def withdrawls(username):
+def withdraw(username):
     while True:
         user_widthdrawls = float(input("How much are you wanting to withdraw: $"))
-        withdraw = 'withdrew'
+        withdraw = 'Withdrawal'
         cur.execute('INSERT INTO info VALUES(?, ?)', [withdraw, user_widthdrawls])
         if user_widthdrawls:
             current_user = account()
@@ -111,4 +112,4 @@ def clear():
 def transactions():
     cur.execute('SELECT status, transactions FROM info')
     for info in cur.fetchall():
-        print(info[0], info[1])
+        print(f'{info[0]} - {info[1]}')

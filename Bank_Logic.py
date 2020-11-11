@@ -6,7 +6,7 @@ con = sqlite3.connect('Save_Better_Bank.db')
 cur = con.cursor()
 cur.execute('CREATE TABLE IF NOT EXISTS users(user_name TEXT, user_password TEXT, balance REAL)')
 
-cur.execute('CREATE TABLE IF NOT EXISTS info(status TEXT, transactions REAL)')
+cur.execute('CREATE TABLE IF NOT EXISTS info(user_name TEXT, status TEXT, transactions REAL)')
 con.commit()
 
 
@@ -57,7 +57,7 @@ def deposits(username):
     while True:
         user_deposit = float(input("How much are you wanting to deposit: $"))
         deposit = 'Deposit'
-        cur.execute('INSERT INTO info VALUES(?,?)', [deposit, user_deposit])
+        cur.execute('INSERT INTO info VALUES(?, ?, ?)', [username, deposit, user_deposit])
         if user_deposit:
             current_user = account()
             current_user.deposit(username, user_deposit)
@@ -70,7 +70,7 @@ def withdraw(username):
     while True:
         user_widthdrawls = float(input("How much are you wanting to withdraw: $"))
         withdraw = 'Withdrawal'
-        cur.execute('INSERT INTO info VALUES(?, ?)', [withdraw, user_widthdrawls])
+        cur.execute('INSERT INTO info VALUES(?, ?, ?)', [username, withdraw, user_widthdrawls])
         if user_widthdrawls:
             current_user = account()
             current_user.withdraw(username, user_widthdrawls)
@@ -109,7 +109,7 @@ def clear():
     
 
 
-def transactions():
-    cur.execute('SELECT status, transactions FROM info')
+def transactions(username):
+    cur.execute('SELECT status, transactions FROM info WHERE user_name = ?', [username])
     for info in cur.fetchall():
         print(f'{info[0]} - {info[1]}')

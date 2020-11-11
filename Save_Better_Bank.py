@@ -22,6 +22,7 @@ def create_account():
         Your password is {completed_user.password}, 
         """)
     cur.execute('INSERT INTO users VALUES(?, ?, ?)', (user_name, user_password, initial_balance))
+    # cur.execute('INSERT INTO info VALUES(?)', (user_name))
     con.commit()
     print("Account Has Been Created!")
     clear()
@@ -78,7 +79,7 @@ def login():
                     withdraw(user_login)
                 elif page == "d":
                     clear()
-                    transactions()
+                    transactions(user_login)
                 elif page == "e":
                     clear()
                     print("Logged Out Successfully!")

@@ -9,7 +9,9 @@ con.commit()
 
 class account:
     def __init__(self):
-        self.balance = 0
+        cur.execute('SELECT balance FROM users')
+        balance = cur.fetchall()
+        self.balance = float(balance[0][0])
 
     def deposit(self, deposit):
         cur.execute('SELECT balance FROM users')
@@ -40,13 +42,20 @@ def is_login_password_valid(username: str, password: str) -> bool:
 #                 return response
 #         print("Please provide a valid number")
 
-def deposits(username, password):
+def view_balance(username):
+    cur.execute('SELECT balance FROM users WHERE user_name = ?', [username])
+    balance = cur.fetchall()
+    return print(f'Your Balance is currently ${balance[0][0]}')
+
+
+def deposits(username):
     while True:
-        user_deposit = float(input("How much are you wanting to deposit: "))
+        user_deposit = float(input("How much are you wanting to deposit: $"))
         if user_deposit:
-            cur.execute('SELECT balance FROM users WHERE user_name = ? AND user_password = ?', [username, password])
+            cur.execute('SELECT balance FROM users WHERE user_name = ?', [username])
             current_user = account()
             current_user.deposit(user_deposit)
+            cur.execute('UPDATE users SET balance = ? WHERE user_name = ?', (user_deposit, username))
             print(f"Your new balance is ${current_user.balance}")
             break
         else:

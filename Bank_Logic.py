@@ -12,7 +12,9 @@ class account:
         self.balance = 0
 
     def deposit(self, deposit):
+        cur.execute('SELECT balance FROM users')
         self.balance = self.balance + deposit
+        cur.execute('INSERT INTO users(balance)VALUES(?)'(self.balance))
         return self.balance
 
     def withdraw(self, withdraw):
@@ -21,7 +23,7 @@ class account:
 
     def total_balance(self):
         return self.balance
-    
+
 def is_login_password_valid(username: str, password: str) -> bool:
     cur.execute('SELECT * FROM users WHERE user_name = ? AND user_password = ?', [username, password])
     if cur.fetchall():
@@ -48,4 +50,16 @@ def deposits(username, password):
             print(f"Your new balance is ${current_user.balance}")
             break
         else:
-            print("Please give valid deposit amount!")     
+            print("Please give valid deposit amount!")
+
+def widthdrawls(username):
+    while True:
+        user_widthdrawls = input("How much are you wanting to withdraw: ")
+        if  user_widthdrawls:
+            cur.execute('SELECT balance FROM users WHERE user_name = ?', (username))
+            current_user = account()
+            current_user.withdraw(user_widthdrawls)
+            print(f"Your new balance is ${current_user.balance}")
+            break
+        else:
+            print("Please give valid deposit amount!")   

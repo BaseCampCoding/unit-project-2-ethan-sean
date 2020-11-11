@@ -2,19 +2,10 @@ import sqlite3
 
 con = sqlite3.connect('Save_Better_Bank.db')
 cur = con.cursor()
-cur.execute('CREATE TABLE IF NOT EXISTS users(user_name TEXT, user_password TEXT, user_id INT)')
+cur.execute('CREATE TABLE IF NOT EXISTS users(user_name TEXT, user_password TEXT, balance REAL)')
 
-cur.execute('CREATE TABLE IF NOT EXISTS accounts(account_id INT, balance REAL, transactions TEXT)')
 con.commit()
 
-def compare_userid():
-    while True:
-        cur.execute('SELECT user_id FROM users INNER JOIN accounts ON user_id = account_id')
-        current_user = cur.fetchall()
-        if current_user:
-            return current_user
-        else: 
-            return None
 
 class account:
     def __init__(self):
@@ -49,10 +40,9 @@ def is_login_password_valid(username: str, password: str) -> bool:
 
 def deposits():
     while True:
-        something = compare_userid()
         user_deposit = float(input("How much are you wanting to deposit: "))
         if user_deposit:
-            cur.execute('SELECT balance FROM accounts WHERE VALUES(?)', (compare_userid()))
+            cur.execute('SELECT balance FROM users WHERE user_name = ? AND user_password = ?', ()
             current_user = account()
             current_user.deposit(user_deposit)
             print(f"Your new balance is ${current_user.balance}")

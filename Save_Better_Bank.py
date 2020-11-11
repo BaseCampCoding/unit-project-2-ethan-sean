@@ -12,16 +12,12 @@ def create_account():
     )
     user_password = input("Type a strong Password: ")
     completed_user = users(user_name, user_password)
-    user_id = random.randint(100000, 999999)
     initial_balance = float(0)
-    initial_transactions = None
     print(f"""
         Your User Name is {completed_user.name}, 
         Your password is {completed_user.password}, 
-        Your account number is {user_id}
         """)
-    cur.execute('INSERT INTO users VALUES(?, ?, ?)', (user_name, user_password, user_id))
-    cur.execute('INSERT INTO accounts VALUES(?, ?, ?)', (user_id, initial_balance, initial_transactions))
+    cur.execute('INSERT INTO users VALUES(?, ?, ?)', (user_name, user_password, initial_balance))
     con.commit()
     print("Account Has Been Created!")
 
@@ -57,7 +53,6 @@ def login():
         valid = is_login_password_valid(user_login, user_password)
         if valid == True:
             print('Successfully Logged in!')
-            compare_userid()
             login_page()
             break
         else:

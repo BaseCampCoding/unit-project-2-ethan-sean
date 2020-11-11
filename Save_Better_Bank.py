@@ -3,7 +3,7 @@ import random
 import stdiomask
 from os import system, name
 from time import sleep
-from Bank_Logic import cur, con, is_login_password_valid, deposits, widthdrawls, account, remove_account, clear
+from Bank_Logic import cur, con, is_login_password_valid, deposits, widthdrawls, account, remove_account, clear, transactions
 account = account()
 class users:
     def __init__(self, name, password):

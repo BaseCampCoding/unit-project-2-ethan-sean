@@ -1,6 +1,7 @@
 import sqlite3
 import random
 import stdiomask
+from colorama import Fore, Back, Style
 from os import system, name
 from time import sleep
 from Bank_Logic import cur, con, is_login_password_valid, deposits, withdraw, account, remove_account, clear, transactions
@@ -91,6 +92,19 @@ def login():
 
 
 while True:
+    clear()
+    print(Fore.CYAN + '''
+    
+   _____                   ____       _   _              ____              _    
+  / ____|                 |  _ \     | | | |            |  _ \            | |   
+ | (___   __ ___   _____  | |_) | ___| |_| |_ ___ _ __  | |_) | __ _ _ __ | | __
+  \___ \ / _` \ \ / / _ \ |  _ < / _ \ __| __/ _ \ '__| |  _ < / _` | '_ \| |/ /
+  ____) | (_| |\ V /  __/ | |_) |  __/ |_| ||  __/ |    | |_) | (_| | | | |   < 
+ |_____/ \__,_| \_/ \___| |____/ \___|\__|\__\___|_|    |____/ \__,_|_| |_|_|\_\
+                                                                                
+                                                                                
+
+    ''')
     main_menu = input("""What would you like to do?(Type Letter of what you want to do.)
     - a) Login
     - b) Create an account

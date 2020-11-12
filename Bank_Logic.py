@@ -61,7 +61,7 @@ def deposits(username):
         if user_deposit:
             current_user = account()
             current_user.deposit(username, user_deposit)
-            print(f"Your new balance is ${current_user.balance}")
+            print(f"Your new balance is ${current_user.balance:.2f}")
             break
         else:
             print("Please give valid deposit amount!")
@@ -74,7 +74,7 @@ def withdraw(username):
         if user_widthdrawls:
             current_user = account()
             current_user.withdraw(username, user_widthdrawls)
-            print(f"Your new balance is ${current_user.balance}")
+            print(f"Your new balance is ${current_user.balance:.2f}")
             break
         else:
             print("Please give valid deposit amount!")   

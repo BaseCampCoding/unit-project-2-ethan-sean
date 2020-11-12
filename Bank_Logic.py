@@ -61,6 +61,7 @@ def deposits(username):
         if user_deposit:
             current_user = account()
             current_user.deposit(username, user_deposit)
+            clear()
             print(f"Your new balance is ${current_user.balance:.2f}")
             break
         else:
@@ -74,6 +75,7 @@ def withdraw(username):
         if user_widthdrawls:
             current_user = account()
             current_user.withdraw(username, user_widthdrawls)
+            clear()
             print(f"Your new balance is ${current_user.balance:.2f}")
             break
         else:
@@ -108,8 +110,22 @@ def clear():
 
     
 
-
 def transactions(username):
     cur.execute('SELECT status, transactions FROM info WHERE user_name = ?', [username])
     for info in cur.fetchall():
         print(f'{info[0]} - {info[1]}')
+
+def change_password(username):
+    clear()
+    change = input("Would you like to change your password? [Y/N]: ").lower()
+    if change == 'y':
+        new_password = stdiomask.getpass(prompt = 'New Password: ')
+        cur.execute('UPDATE users SET user_password = ? WHERE user_name = ?', [new_password, username])
+        con.commit()
+        print('Password Successfully Changed!')
+    elif change == 'n':
+        print('Returning to user options!')
+    else:
+        ('Please give valid input!')
+
+        

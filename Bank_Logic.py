@@ -52,13 +52,22 @@ def is_login_password_valid(username: str, password: str) -> bool:
         return False
 
 
+def input_number(prompt: str) -> int:
+    while True:
+        response = input(prompt)
+        if response.isdigit():
+            response = float(response)
+            if response >= 0:
+                return response
+        print("Please use a number greater than zero")
 
 def deposits(username):
     while True:
-        user_deposit = float(input("How much are you wanting to deposit: $"))
-        deposit = 'Deposit'
-        cur.execute('INSERT INTO info VALUES(?, ?, ?)', [username, deposit, user_deposit])
-        if user_deposit:
+        user_deposit =  input("How much are you wanting to deposit: $")
+        if user_deposit.isdigit():
+            user_deposit = float(user_deposit)
+            deposit = 'Deposit'
+            cur.execute('INSERT INTO info VALUES(?, ?, ?)', [username, deposit, user_deposit])
             current_user = account()
             current_user.deposit(username, user_deposit)
             print(f"Your new balance is ${current_user.balance:.2f}")
@@ -68,10 +77,11 @@ def deposits(username):
 
 def withdraw(username):
     while True:
-        user_widthdrawls = float(input("How much are you wanting to withdraw: $"))
-        withdraw = 'Withdrawal'
-        cur.execute('INSERT INTO info VALUES(?, ?, ?)', [username, withdraw, user_widthdrawls])
-        if user_widthdrawls:
+        user_widthdrawls = input("How much are you wanting to withdraw: $")
+        if user_widthdrawls.isdigit():
+            user_widthdrawls = float(user_widthdrawls)
+            withdraw = 'Withdrawal'
+            cur.execute('INSERT INTO info VALUES(?, ?, ?)', [username, withdraw, user_widthdrawls])
             current_user = account()
             current_user.withdraw(username, user_widthdrawls)
             print(f"Your new balance is ${current_user.balance:.2f}")

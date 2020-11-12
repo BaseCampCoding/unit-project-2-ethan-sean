@@ -28,31 +28,6 @@ def create_account():
     print("Account Has Been Created!")
     clear()
 
-# def login_page():
-#     while True:
-#         page = input("""Do you want to view balance, withdraw, deposit, or view transactions
-#         - a) View Balance
-#         - b) Deposit
-#         - c) Withdraw
-#         - d) View transactions
-#         - e) Log Out
-#         Type Here: """).lower()
-#         if page == "a":
-#             view_balance()
-#         elif page == "b":
-#             deposits()
-#         elif page == "b":
-#             widthdrawls()
-#         elif page == "d":
-#             transactions()
-#         elif page == "e":
-#             print("Logged Out Successfully!")
-#             quit()
-#         else:
-#             print("Please Provide Valid Input!")
-    
-# print("Welcome to SaveBetterBank(SBB)")
-
 def login():
     while True:
         user_login = input('UserName: ')
@@ -127,14 +102,3 @@ while True:
         quit()
     else:
         print("Please Try Again with a valid letter!")
-
-# user = account()
-# user1 = user.deposit(50)
-# user1 = user.withdraw(20)
-
-# user2 = account()
-# user = user2.deposit(100)
-# user = user2.withdraw(10)
-# # print(user2)
-# print(f"Your balance is ${user.balance:.2f}")
-# print(f"Your balance is ${user2.balance:.2f}")

@@ -4,7 +4,7 @@ from time import sleep
 import stdiomask
 con = sqlite3.connect('Save_Better_Bank.db')
 cur = con.cursor()
-cur.execute('CREATE TABLE IF NOT EXISTS users(user_name TEXT, user_password TEXT, balance REAL)')
+cur.execute('CREATE TABLE IF NOT EXISTS users(user_name TEXT, user_password TEXT, balance REAL, savings REAL)')
 
 cur.execute('CREATE TABLE IF NOT EXISTS info(user_name TEXT, status TEXT, transactions REAL)')
 con.commit()
@@ -18,6 +18,7 @@ class account:
         # balance = cur.fetchall()
         # self.balance = float(balance[0][0])
         self.balance = float(0)
+        self.saving = float(0)
 
     def deposit(self, username, deposit):
         cur.execute('SELECT balance FROM users WHERE user_name = ?', [username])
@@ -37,6 +38,19 @@ class account:
             cur.execute('UPDATE users SET balance = ? WHERE user_name = ?', (self.balance, username))
             con.commit()
             return self.balance
+        print("You don't have enough funds to withdraw this amount")
+    
+    def savings(self, username, savings):
+        cur.execute('SELECT balance FROM users WHERE user_name = ?', [username])
+        self.balance = cur.fetchall()
+        self.balance = float(self.balance[0][0])
+        if self.balance >= savings:
+            self.balance -= savings
+            self.saving = self.saving + self.balance
+            cur.execute('UPDATE users SET balance = ? WHERE user_name = ?', (self.balance, username))
+            cur.execute('UPDATE users SET savings = ? WHERE user_name = ?', (self.balance, username))
+            con.commit()
+            return self.savings
         print("You don't have enough funds to withdraw this amount")
 
     def view_balance(self, username):
@@ -91,6 +105,24 @@ def withdraw(username):
         else:
             print("Please give valid deposit amount!")   
 
+def savings_account(username):
+    while True:
+        user_savings = input("How much are you wanting to put in your savings account?: $")
+        if user_savings.isdigit():
+            user_savings = float(user_savings)
+            status = 'Moved to Savings'
+            cur.execute('INSERT INTO info VALUES(?, ?, ?)', [username, status, user_savings])
+            current_user = account()
+            current_user.savings(username, user_savings)
+            cur.execute('SELECT savings FROM users WHERE user_name = ?', [username])
+            savings_balance = cur.fetchall()
+            savings_balance = float(savings_balance[0][0])
+            clear()
+            print(f"Savings balance ${savings_balance:.2f}")
+            break
+        else:
+            print("Please give valid deposit amount!")
+
 def remove_account():
     while True:
         print(f'Please Login with the account you would like to delete:')
@@ -137,5 +169,3 @@ def change_password(username):
         print('Returning to user options!')
     else:
         ('Please give valid input!')
-
-        

@@ -4,7 +4,7 @@ import stdiomask
 from colorama import Fore, Back, Style
 from os import system, name
 from time import sleep
-from Bank_Logic import cur, con, is_login_password_valid, deposits, withdraw, account, remove_account, clear, transactions, change_password
+from Bank_Logic import cur, con, is_login_password_valid, deposits, withdraw, account, remove_account, clear, transactions, change_password, savings_account
 account = account()
 def main_screen():
     while True:
@@ -57,11 +57,12 @@ def create_account():
     user_password = stdiomask.getpass(prompt = "Type a strong Password: ")
     completed_user = users(user_name, user_password)
     initial_balance = float(0)
+    initial_savings = float(0)
     print(f"""
         Your User Name is {completed_user.name}, 
         Your password is {completed_user.password}, 
         """)
-    cur.execute('INSERT INTO users VALUES(?, ?, ?)', (user_name, user_password, initial_balance))
+    cur.execute('INSERT INTO users VALUES(?, ?, ?, ?)', (user_name, user_password, initial_balance, initial_savings))
     # cur.execute('INSERT INTO info VALUES(?)', (user_name))
     con.commit()
     print("Account Has Been Created!")
@@ -83,7 +84,8 @@ def login():
         - c) Withdraw
         - d) View transactions
         - e) Change Password
-        - f) Log out
+        - f) Savings Deposit
+        - g) Log out
         Type Here: """).lower()
                 if page == "a":
                     clear()
@@ -102,6 +104,9 @@ def login():
                     change_password(user_login)
                     clear()
                 elif page == "f":
+                    clear()
+                    savings_account(user_login)
+                elif page == "g":
                     clear()
                     print("Logged Out Successfully!")
                     main_screen()

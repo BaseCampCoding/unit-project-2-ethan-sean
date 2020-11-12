@@ -42,7 +42,7 @@ class account:
     def view_balance(self, username):
         cur.execute('SELECT balance FROM users WHERE user_name = ?', [username])
         self.balance = cur.fetchall()
-        return print(f'Your Balance is currently ${self.balance[0][0]}')
+        return print(f'Your Balance is currently ${self.balance[0][0]:.2f}')
 
 def is_login_password_valid(username: str, password: str) -> bool:
     cur.execute('SELECT * FROM users WHERE user_name = ? AND user_password = ?', [username, password])

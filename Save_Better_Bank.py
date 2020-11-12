@@ -113,6 +113,15 @@ def login():
                 else:
                     print("Please Provide Valid Input!")
         else:
-            print('Username or password wrong. Try Again!')
+            option = input('Username or Password wrong! To TryAgain (T) or Exit with (E)\nInputHere: ').upper()
+            if option == 'T':
+                clear()
+                login()
+            elif option == 'E':
+                clear()
+                main_screen()
+            else:
+                ('Give valid input!')
+
 
 main_screen()

@@ -155,7 +155,7 @@ def clear():
 def transactions(username):
     cur.execute('SELECT status, transactions FROM info WHERE user_name = ?', [username])
     for info in cur.fetchall():
-        print(f'{info[0]} - {info[1]}')
+        print(f'{info[0]} - ${info[1]}')
 
 def change_password(username):
     clear()

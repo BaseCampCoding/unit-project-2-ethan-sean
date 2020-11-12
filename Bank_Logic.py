@@ -45,13 +45,15 @@ class account:
         self.balance = cur.fetchall()
         self.balance = float(self.balance[0][0])
         if self.balance >= savings:
-            self.balance -= savings
-            self.saving = self.saving + self.balance
+            self.balance = self.balance - savings
+            # self.saving = self.balance - self.saving
             cur.execute('UPDATE users SET balance = ? WHERE user_name = ?', (self.balance, username))
-            cur.execute('UPDATE users SET savings = ? WHERE user_name = ?', (self.balance, username))
             con.commit()
-            return self.savings
-        print("You don't have enough funds to withdraw this amount")
+            cur.execute('UPDATE users SET savings = ? WHERE user_name = ?', (savings, username))
+            con.commit()
+            return savings
+        else:
+            print("You can't transfer more than you have!")
 
     def view_balance(self, username):
         cur.execute('SELECT balance FROM users WHERE user_name = ?', [username])
@@ -113,11 +115,11 @@ def savings_account(username):
             status = 'Moved to Savings'
             cur.execute('INSERT INTO info VALUES(?, ?, ?)', [username, status, user_savings])
             current_user = account()
+            clear()
             current_user.savings(username, user_savings)
             cur.execute('SELECT savings FROM users WHERE user_name = ?', [username])
             savings_balance = cur.fetchall()
             savings_balance = float(savings_balance[0][0])
-            clear()
             print(f"Savings balance ${savings_balance:.2f}")
             break
         else:
